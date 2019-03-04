@@ -8,7 +8,7 @@ from argparse import ArgumentParser
 
 parser = ArgumentParser(description="Download Full Quality sets of pages from Gallica")
 parser.add_argument("text", type=str,
-                    help="either the ID of the text (in http://gallica.bnf.fr/ark:/12148/btv1b53084829z/, this would be btv1b53084829z), or the path to a .csv file containing relevant information")
+                    help="either the ID of the text (in http://gallica.bnf.fr/ark:/12148/btv1b53084829z/, this would be btv1b53084829z), or the path to a .tsv file containing relevant information")
 parser.add_argument("--source", type=str, default='gallica',
                     help="Source from which to download (e.g., gallica, e-codices, bvmm)")
 parser.add_argument("--start", type=int, default=1, help="Page to start from")
@@ -39,11 +39,11 @@ def dl_write(i, source, bookid):
         shutil.copyfileobj(response.raw, f)
 
 
-def read_csv(file):
+def read_tsv(file):
     with open(file, 'r') as f:
 
         if not f.readline().split('\t') == ['ID', 'source', 'start', 'end\n']:
-            sys.stderr.write("Error: csv file must have headings 'ID', 'source', 'start', 'end'\n")
+            sys.stderr.write("Error: tsv file must have headings 'ID', 'source', 'start', 'end'\n")
             sys.exit(1)
 
         mss = []
@@ -84,8 +84,8 @@ if __name__ == "__main__":
 
     text = args.text
 
-    if text.endswith(".csv"):
-        mss = read_csv(text)
+    if text.endswith(".tsv"):
+        mss = read_tsv(text)
         for ms in mss:
             print("Now downloading: {}".format(ms[0]))
             ms_dl(ms[0], ms[1], int(ms[2]), int(ms[3]))

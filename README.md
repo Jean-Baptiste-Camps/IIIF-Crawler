@@ -23,9 +23,9 @@ where,
 - SOURCE, the source from which to download (currently, only `gallica`, `e-codices` and `bvmm`); 
 - and 1 and 2 are the beginning and end folios you want to download (N.B.: page number are different on Gallica, and E-Codices, so, on E-Codices, `15` to `16` will send back four pages, 15r to 16v).
 
-Alternatively, you can pass a csv file with the relevant informations (see `example.csv`).
+Alternatively, you can pass a tsv file with the relevant informations (see `example.tsv`).
 
 ```bash
-python3 iiifcrawler.py example.csv
+python3 iiifcrawler.py example.tsv
 ```
 
